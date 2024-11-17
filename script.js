@@ -415,14 +415,15 @@ addEventListener("click", (event) => {
   }
 });
 
+async function openATPFile(file) {
+  try {
+    await loadATPFile(file);
+  } catch (error) {
+    alert(error.message);
+  }
+}
 openAtp.onclick = () => {
-  filePicker(".atp", async (files) => {
-    try {
-      await loadATPFile(files[0]);
-    } catch (error) {
-      alert(error.message);
-    }
-  });
+  filePicker(".atp", (files) => openATPFile(files[0]));
 };
 saveAtp.onclick = () => {
   const atp = getATP();
@@ -434,3 +435,50 @@ saveAtp.onclick = () => {
   a.click();
   document.body.removeChild(a);
 };
+
+{
+  let count = 0;
+
+  addEventListener('dragenter', (event) => {
+    event.preventDefault();
+
+    if (count++ === 0) {
+      dropTarget.classList.add('is-over');
+    }
+  });
+  addEventListener('dragover', (event) => {
+    event.preventDefault();
+  });
+  addEventListener('dragleave', (event) => {
+    event.preventDefault();
+
+    if (--count === 0) {
+      dropTarget.classList.remove('is-over');
+    }
+  });
+  addEventListener('drop', (event) => {
+    event.preventDefault();
+
+    count = 0;
+    dropTarget.classList.remove('is-over');
+
+    const dt = event.dataTransfer;
+
+    if (dt && dt.items) {
+      for (const item of dt.items) {
+        if (item.kind === 'file') {
+          const file = item.getAsFile();
+          if (file && file.name.toLowerCase().endsWith('.atp')) {
+            return openATPFile(file);
+          }
+        }
+      }
+    } else if (dt && dt.files) {
+      for (const file of dt.files) {
+        if (file && file.name.toLowerCase().endsWith('.atp')) {
+          return openATPFile(file);
+        }
+      }
+    }
+  });
+}
