@@ -72,6 +72,7 @@ x-question {
   border-radius: 8px;
   padding: 5px;
   counter-reset: answer;
+  background-color: #eee;
 }
 x-question :first-child {
   margin-top: 0;
@@ -138,6 +139,9 @@ x-question[data-type="mcmany"] .allow-many {
 }
 
 @media screen and (prefers-color-scheme: dark) {
+  x-question {
+    background-color: #222;
+  }
   x-question,
   [contenteditable=""] {
     border-color: #eee;
