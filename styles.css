@@ -1,0 +1,123 @@
+html {
+  color: CanvasText;
+  background-color: Canvas;
+  color-scheme: light dark;
+}
+body {
+  margin: 0 auto;
+  max-width: 900px;
+  display: grid;
+  grid-template: "title title" auto "settings actions" auto / 1fr auto;
+  counter-reset: question;
+}
+h1 {
+  grid-area: title;
+}
+fieldset {
+  grid-area: settings;
+  display: flex;
+  flex-direction: column;
+}
+x-actions {
+  grid-area: actions;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+x-add-question {
+  grid-column: 1/-1;
+  margin: 8px 0;
+  display: flex;
+  align-items: center;
+}
+x-add-question::before,
+x-add-question::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid #999;
+  margin: 0 5px;
+}
+x-add-question button:not(:first-child) {
+  margin-left: 5px;
+}
+x-question {
+  grid-column: 1/-1;
+  border: 1px solid #333;
+  border-radius: 8px;
+  padding: 5px;
+  counter-reset: answer;
+}
+x-question :first-child {
+  margin-top: 0;
+}
+x-question :last-child {
+  margin-bottom: 0;
+}
+x-question h2 {
+  margin: 0;
+  counter-increment: question;
+}
+x-question h2::before {
+  content: counter(question) ". ";
+}
+x-question-title,
+x-answer,
+x-add-answer {
+  display: flex;
+  align-items: center;
+}
+x-question:first-of-type x-question-title .up,
+x-question:last-of-type x-question-title .down {
+  visibility: hidden;
+}
+x-answer {
+  counter-increment: answer;
+}
+x-question[data-type^="mc"] x-answer [contenteditable]::before {
+  content: counter(answer, upper-alpha) ". ";
+}
+x-answer:first-of-type .up,
+x-answer:last-of-type .down {
+  visibility: hidden;
+}
+x-answer:focus,
+x-answer:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+x-add-answer .up,
+x-add-answer .down,
+x-add-answer .delete {
+  visibility: hidden;
+}
+x-add-answer .delete + button:not(:last-child),
+.delete {
+  margin-right: 8px;
+}
+x-question[data-type="text"] x-answer + x-add-answer,
+x-question[data-type="mcone"] .allow-one,
+x-question[data-type="mcmany"] .allow-many {
+  display: none;
+}
+[contenteditable=""] {
+  border-bottom: 1px solid black;
+}
+[contenteditable=""] * {
+  all: inherit !important;
+  display: inline !important;
+  outline: none !important;
+  border: none !important;
+}
+[contenteditable=""] br {
+  display: none !important;
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  x-question,
+  [contenteditable=""] {
+    border-color: #eee;
+  }
+  x-answer:focus,
+  x-answer:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+}
