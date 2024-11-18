@@ -378,14 +378,16 @@ addEventListener("keydown", (event) => {
         if (event.shiftKey) {
           moveDown(event.target);
         } else {
-          nextOf(event.target, tag).focus();
+          const next = nextOf(event.target, tag);
+          if (next) next.focus();
         }
         break;
       case "ArrowUp":
         if (event.shiftKey) {
           moveUp(event.target);
         } else {
-          previousOf(event.target, tag).focus();
+          const previous = previousOf(event.target, tag);
+          if (previous) previous.focus();
         }
         break;
       case "Enter":
