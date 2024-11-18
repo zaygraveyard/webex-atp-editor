@@ -422,6 +422,9 @@ async function openATPFile(file) {
     alert(error.message);
   }
 }
+newAtp.onclick = () => {
+  clear();
+};
 openAtp.onclick = () => {
   filePicker(".atp", (files) => openATPFile(files[0]));
 };
