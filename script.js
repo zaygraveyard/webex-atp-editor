@@ -456,6 +456,7 @@ async function openATPFile(file) {
 }
 newAtp.onclick = () => {
   clear();
+  openedFileName = null;
 };
 openAtp.onclick = () => {
   filePicker(".atp", (files) => openATPFile(files[0]));
