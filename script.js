@@ -400,6 +400,11 @@ addEventListener("keydown", (event) => {
       default:
         return;
     }
+  } else if (
+    event.key === "Enter" &&
+    event.target.closest("[contenteditable]")
+  ) {
+    event.target.closest("x-answer, x-question").focus();
   } else {
     return;
   }
