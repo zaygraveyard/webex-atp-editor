@@ -325,6 +325,31 @@ function getATP() {
 body.append(getTemplate(addQuestionTemplate));
 
 {
+  function saveInSession() {
+    try {
+      sessionStorage.setItem('lastATP', getATP());
+      sessionStorage.setItem('lastATPName', openedFileName);
+    } catch (error) {
+      /*ignore*/
+    }
+  }
+  function loadFromSession() {
+    try {
+      loadATP(sessionStorage.getItem('lastATP'));
+      openedFileName = sessionStorage.getItem('lastATPName');
+    } catch (error) {
+      /*ignore*/
+    }
+  }
+  addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+      saveInSession();
+    }
+  });
+  addEventListener('pagehide', saveInSession);
+  loadFromSession();
+}
+{
   let uncheckTimeout;
   addEventListener("change", (event) => {
     const target = event.target;
