@@ -180,7 +180,7 @@ function deleteAnswer(answer) {
 
 function moveUp(node) {
   const focus = document.activeElement;
-  switch (node.tagName.toLowerCase()) {
+  switch (node.localName) {
     case "x-question":
     case "x-question-title":
       moveQuestionUp(node.closest("x-question"));
@@ -193,7 +193,7 @@ function moveUp(node) {
 }
 function moveDown(node) {
   const focus = document.activeElement;
-  switch (node.tagName.toLowerCase()) {
+  switch (node.localName) {
     case "x-question":
     case "x-question-title":
       moveQuestionDown(node.closest("x-question"));
@@ -206,7 +206,7 @@ function moveDown(node) {
 }
 function deleteItem(node) {
   const question = node.closest("x-question");
-  switch (node.tagName.toLowerCase()) {
+  switch (node.localName) {
     case "x-question":
     case "x-question-title": {
       const focus =
@@ -371,7 +371,7 @@ addEventListener("focusout", (event) => {
   }
 });
 addEventListener("keydown", (event) => {
-  const tag = event.target.tagName.toLowerCase();
+  const tag = event.target.localName;
   if (tag === "x-question" || tag === "x-answer") {
     switch (event.key) {
       case "ArrowDown":
