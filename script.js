@@ -328,7 +328,7 @@ body.append(getTemplate(addQuestionTemplate));
   function saveInSession() {
     try {
       sessionStorage.setItem('lastATP', getATP());
-      sessionStorage.setItem('lastATPName', openedFileName);
+      sessionStorage.setItem('lastATPName', openedFileName || '');
     } catch (error) {
       /*ignore*/
     }
@@ -336,7 +336,7 @@ body.append(getTemplate(addQuestionTemplate));
   function loadFromSession() {
     try {
       loadATP(sessionStorage.getItem('lastATP'));
-      openedFileName = sessionStorage.getItem('lastATPName');
+      openedFileName = sessionStorage.getItem('lastATPName') || undefined;
     } catch (error) {
       /*ignore*/
     }
